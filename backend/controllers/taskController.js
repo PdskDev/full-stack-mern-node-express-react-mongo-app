@@ -40,9 +40,15 @@ const getTaskById = (req, res) => {
 };
 
 const createTask = (req, res) => {
-  res.status(200).json({
-    message: `Task is created with id ${Math.floor(Math.random() * 99) + 1}`,
-  });
+  console.log(req.body);
+
+  if (!req.body.title) {
+    res.status(400).json({ message: 'Please enter task title!' });
+  } else {
+    res.status(200).json({
+      message: `Task is created with id ${Math.floor(Math.random() * 99) + 1}`,
+    });
+  }
 };
 
 const updateTask = (req, res) => {
