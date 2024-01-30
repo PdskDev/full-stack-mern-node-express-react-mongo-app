@@ -43,12 +43,12 @@ const createTask = (req, res) => {
   console.log(req.body);
 
   if (!req.body.title) {
-    res.status(400).json({ message: 'Please enter task title!' });
-  } else {
-    res.status(200).json({
-      message: `Task is created with id ${Math.floor(Math.random() * 99) + 1}`,
-    });
+    res.status(400);
+    throw new Error('Please enter task title');
   }
+  res.status(200).json({
+    message: `Task is created with id ${Math.floor(Math.random() * 99) + 1}`,
+  });
 };
 
 const updateTask = (req, res) => {
