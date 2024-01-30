@@ -1,45 +1,21 @@
-const tasks = [
-  {
-    id: 5,
-    title: 'Learn Java',
-    isDone: true,
-  },
-  {
-    id: 6,
-    title: 'Learn PHP',
-    isDone: false,
-  },
-  {
-    id: 7,
-    title: 'Visit Paris',
-    isDone: true,
-  },
-  {
-    id: 8,
-    title: 'Attend team meeting',
-    isDone: false,
-  },
-  {
-    id: 9,
-    title: 'Delivery my app via Jenkins',
-    isDone: true,
-  },
-];
+const { tasks } = require('../models/tasks.list');
+const asyncHandler = require('express-async-handler');
 
-const getTasks = (req, res) => {
+const getTasks = asyncHandler((req, res) => {
   res.status(200).json({
     message: 'list of tasks',
+    total: tasks.length,
     tasks: tasks,
   });
-};
+});
 
-const getTaskById = (req, res) => {
+const getTaskById = asyncHandler((req, res) => {
   res.status(200).json({
     message: `The id of task is ${req.params.taskId}`,
   });
-};
+});
 
-const createTask = (req, res) => {
+const createTask = asyncHandler((req, res) => {
   console.log(req.body);
 
   if (!req.body.title) {
@@ -49,18 +25,18 @@ const createTask = (req, res) => {
   res.status(200).json({
     message: `Task is created with id ${Math.floor(Math.random() * 99) + 1}`,
   });
-};
+});
 
-const updateTask = (req, res) => {
+const updateTask = asyncHandler((req, res) => {
   res.status(200).json({
     message: `Task ${req.params.taskId} is updated successfully`,
   });
-};
+});
 
-const deleteTask = (req, res) => {
+const deleteTask = asyncHandler((req, res) => {
   res.status(200).json({
     message: `Task ${req.params.taskId} is deleted successfully`,
   });
-};
+});
 
 module.exports = { getTasks, getTaskById, createTask, updateTask, deleteTask };
