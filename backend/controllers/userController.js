@@ -22,10 +22,12 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error(appMessage.user.error.user_exists);
   }
 
+  hashedPassword = await securePassword(password);
+
   const newUser = await User.create({
     name,
     email,
-    password: await securePassword(password),
+    password: hashedPassword,
   });
 
   if (newUser) {
