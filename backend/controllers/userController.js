@@ -34,6 +34,29 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400);
+    throw new Error('All fields are required');
+  }
+
+  const userToLogin = await User.findOne({ email });
+
+  if (userToLogin && (await bcrypt.compare(password, userToLogin.password))) {
+    res.status(200).json({
+      message: 'You are log in successfully',
+      user: {
+        _id: userToLogin.id,
+        name: userToLogin.name,
+        email: userToLogin.email,
+      },
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
+
   res.json({ message: 'Get user login' });
 });
 
