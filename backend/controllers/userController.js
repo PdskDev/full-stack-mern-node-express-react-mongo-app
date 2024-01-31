@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const {
-  generateToken,
+  generateJWTtoken,
   securePassword,
 } = require('../middleware/securityHandler');
 const appMessage = require('../messages/appMessage');
@@ -25,7 +25,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const newUser = await User.create({
     name,
     email,
-    password: securePassword(password),
+    password: await securePassword(password),
   });
 
   if (newUser) {
@@ -35,7 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
         _id: newUser.id,
         name: newUser.name,
         email: newUser.email,
-        token: generateToken(newUser.id),
+        token: generateJWTtoken(newUser.id),
       },
     });
   } else {
@@ -61,7 +61,7 @@ const loginUser = asyncHandler(async (req, res) => {
         _id: userToLogin.id,
         name: userToLogin.name,
         email: userToLogin.email,
-        token: generateToken(userToLogin.id),
+        token: generateJWTtoken(userToLogin.id),
       },
     });
   } else {
