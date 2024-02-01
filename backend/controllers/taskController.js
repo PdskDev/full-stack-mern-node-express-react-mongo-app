@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Task = require('../models/taskModel');
+const User = require('../models/userModel');
 const appMessage = require('../messages/appMessage');
 
 const getTasks = asyncHandler(async (req, res) => {
@@ -47,10 +48,24 @@ const updateTask = asyncHandler(async (req, res) => {
     throw new Error(appMessage.task.error.enter_title);
   }
 
-  const existTask = await Task.findById(req.params.taskId);
-  if (!existTask) {
+  const taskToUpdate = await Task.findById(req.params.taskId);
+  if (!taskToUpdate) {
     res.status(400);
     throw new Error(appMessage.task.error.not_found);
+  }
+
+  const currentUser = await User.findById(req.user.id);
+
+  if (!currentUser) {
+    res.status(400);
+    throw new Error(appMessage.user.error.user_not_found);
+  }
+
+  if (taskToUpdate.user.toString() != currentUser.id) {
+    res.status(400);
+    throw new Error(
+      appMessage.task.error.not_authorized_action.replace('action', 'update')
+    );
   }
 
   const updatedTask = await Task.findByIdAndUpdate(
@@ -69,6 +84,20 @@ const deleteTask = asyncHandler(async (req, res) => {
   if (!taskToDelete) {
     res.status(400);
     throw new Error(appMessage.task.error.not_found);
+  }
+
+  const currentUser = await User.findById(req.user.id);
+
+  if (!currentUser) {
+    res.status(400);
+    throw new Error(appMessage.user.error.user_not_found);
+  }
+
+  if (taskToDelete.user.toString() != currentUser.id) {
+    res.status(400);
+    throw new Error(
+      appMessage.task.error.not_authorized_action.replace('action', 'delete')
+    );
   }
 
   await Task.findByIdAndDelete(req.params.taskId);

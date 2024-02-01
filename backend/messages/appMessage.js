@@ -10,6 +10,7 @@ const AppMessage = {
       invalid_data: 'Invalid user data',
       not_authorized: 'Your are not authorized',
       token_missing: 'Not authorized without token',
+      user_not_found: 'No such user found',
     },
   },
   task: {
@@ -21,6 +22,7 @@ const AppMessage = {
     error: {
       not_found: 'Task not found',
       enter_title: 'Please enter task title',
+      not_authorized_action: 'User is not authorized to action this task',
     },
   },
 };
