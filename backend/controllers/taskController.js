@@ -3,7 +3,8 @@ const Task = require('../models/taskModel');
 const appMessage = require('../messages/appMessage');
 
 const getTasks = asyncHandler(async (req, res) => {
-  const tasks = await Task.find();
+  //retreive only user's tasks
+  const tasks = await Task.find({ user: req.user.id });
   res.status(200).json({
     count: tasks.length,
     tasks: tasks,
@@ -32,6 +33,7 @@ const createTask = asyncHandler(async (req, res) => {
   const newTask = await Task.create({
     title: req.body.title,
     isDone: taskIsDone,
+    user: req.user.id,
   });
   res.status(200).json({
     message: appMessage.task.success.created,
