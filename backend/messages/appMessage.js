@@ -8,6 +8,8 @@ const AppMessage = {
       all_fields_required: 'All fields are required',
       user_exists: 'User already exists',
       invalid_data: 'Invalid user data',
+      not_authorized: 'Your are not authorized',
+      token_missing: 'Not authorized without token',
     },
   },
   task: {

@@ -7,20 +7,21 @@ const {
   updateTask,
   deleteTask,
 } = require('../controllers/taskController');
+const { protect } = require('../middleware/authHandler');
 
 //get all tasks
-router.get('/', getTasks);
+router.get('/', protect, getTasks);
 
 //get specific task
-router.get('/:taskId', getTaskById);
+router.get('/:taskId', protect, getTaskById);
 
 //create new task
-router.post('/', createTask);
+router.post('/', protect, createTask);
 
 //update task
-router.put('/:taskId', updateTask);
+router.put('/:taskId', protect, updateTask);
 
 //delete task
-router.delete('/:taskId', deleteTask);
+router.delete('/:taskId', protect, deleteTask);
 
 module.exports = router;
