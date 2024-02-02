@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { register, reset } from '../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
+import AppMessage from '../messages/AppMessage';
 import { FaUser } from 'react-icons/fa';
+import Spinner from './Spinner';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
+
+  useEffect(() => {
+    if (isError) toast.error(message);
+    if (isSuccess || user) navigate('/');
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
   const { name, email, password, confirmPassword } = formData;
 
   const onChangeHandler = (e) => {
@@ -19,9 +36,18 @@ const Register = () => {
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast.error(AppMessage.register.error.password_different);
+    } else {
+      const userData = { name, email, password };
+      dispatch(register(userData));
+    }
   };
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <>
       <section className='heading'>
         <h1>
