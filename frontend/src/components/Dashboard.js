@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import TaskForm from './TaskForm';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -17,6 +18,7 @@ const Dashboard = () => {
         <h1>Welcome {user.user && user.user.name}</h1>
         <p>Tasks Dashboard</p>
       </section>
+      <TaskForm />
     </>
   );
 };
