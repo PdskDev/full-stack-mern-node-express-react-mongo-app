@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
 import Switch from '@mui/material/Switch';
+import { createTask } from '../features/tasks/taskSlice';
+import { useDispatch } from 'react-redux';
 
 //import { useDispatch } from 'react-redux';
 
 const TaskForm = () => {
   const [title, setTitle] = useState('');
   const [isDone, setIsDone] = useState(false);
+  const dispatch = useDispatch();
 
   const checkBoxHandler = (e) => {
     setIsDone(!isDone);
@@ -14,7 +17,9 @@ const TaskForm = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    dispatch(createTask({ title, isDone }));
     setTitle('');
+    setIsDone(false);
   };
   return (
     <section className='form'>
