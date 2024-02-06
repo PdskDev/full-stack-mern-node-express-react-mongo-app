@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 
+import Switch from '@mui/material/Switch';
+
 //import { useDispatch } from 'react-redux';
 
 const TaskForm = () => {
-  const [title, setTitle] = useState();
-  const [isDone, setIsDone] = useState();
+  const [title, setTitle] = useState('');
+  const [isDone, setIsDone] = useState(false);
+
+  const checkBoxHandler = (e) => {
+    setIsDone(!isDone);
+  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -14,7 +20,7 @@ const TaskForm = () => {
     <section className='form'>
       <form onSubmit={onSubmitHandler}>
         <div className='form-group'>
-          <label htmlFor='title'>Task</label>
+          <label htmlFor='title'>To Do</label>
           <input
             type='text'
             id='title'
@@ -24,26 +30,20 @@ const TaskForm = () => {
           />
         </div>
         <div className='form-group'>
-          <label htmlFor='isDone-true'>Is Completed ?</label>
-          <div class='switch-field'>
-            <input
-              type='radio'
-              id='isDone-true'
-              name='isDone'
-              value='true'
-              onClick={(e) => setIsDone(e.target.value)}
+          <label htmlFor='isDoneCheckbox'>
+            Is Done ?
+            <Switch
+              name='isDoneCheckbox'
+              checked={isDone}
+              onChange={checkBoxHandler}
+              inputProps={{ 'aria-label': 'controlled' }}
             />
-            <label htmlFor='isDone-false'>Yes</label>
-            <input
-              type='radio'
-              id='isDone-false'
-              name='isDone'
-              value='false'
-              checked={true}
-              onClick={(e) => setIsDone(e.target.value)}
-            />
-            <label for='radio-two'>No</label>
-          </div>
+          </label>
+        </div>
+        <div className='form-group'>
+          <button type='submit' className='btn btn-block'>
+            Save
+          </button>
         </div>
       </form>
     </section>

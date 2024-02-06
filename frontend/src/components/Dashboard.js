@@ -16,7 +16,7 @@ const Dashboard = () => {
     <>
       <section className='heading'>
         <h1>Welcome {user.user && user.user.name}</h1>
-        <p>Tasks Dashboard</p>
+        <p>To Do List Dashboard</p>
       </section>
       <TaskForm />
     </>

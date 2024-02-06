@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <header className='header'>
       <div className='logo'>
-        <Link to='/'>Task Creator</Link>
+        <Link to='/'>React To Do App</Link>
       </div>
       <ul>
         {user ? (
