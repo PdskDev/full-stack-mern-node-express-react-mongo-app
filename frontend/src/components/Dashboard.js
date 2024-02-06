@@ -16,7 +16,11 @@ const Dashboard = () => {
     <>
       <section className='heading'>
         <h1>Welcome {user.user && user.user.name}</h1>
-        <p>To Do List Dashboard</p>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button className='btn' onClick={() => navigate('/alltasks')}>
+            View my Todos
+          </button>
+        </div>
       </section>
       <TaskForm />
     </>
