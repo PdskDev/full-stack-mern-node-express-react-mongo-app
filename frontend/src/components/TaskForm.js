@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Switch from '@mui/material/Switch';
 import { createTask } from '../features/tasks/taskSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 //import { useDispatch } from 'react-redux';
 
@@ -10,6 +11,7 @@ const TaskForm = () => {
   const [title, setTitle] = useState('');
   const [isDone, setIsDone] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const checkBoxHandler = (e) => {
     setIsDone(!isDone);
@@ -20,12 +22,13 @@ const TaskForm = () => {
     dispatch(createTask({ title, isDone }));
     setTitle('');
     setIsDone(false);
+    navigate('/alltasks');
   };
   return (
     <section className='form'>
       <form onSubmit={onSubmitHandler}>
         <div className='form-group'>
-          <label htmlFor='title'>To Do</label>
+          <label htmlFor='title'>My To Do</label>
           <input
             type='text'
             id='title'

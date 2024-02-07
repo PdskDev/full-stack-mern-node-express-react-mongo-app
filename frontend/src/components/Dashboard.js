@@ -18,7 +18,7 @@ const Dashboard = () => {
         <h1>Welcome {user.user && user.user.name}</h1>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button className='btn' onClick={() => navigate('/alltasks')}>
-            View my Todos
+            View my all Todos
           </button>
         </div>
       </section>

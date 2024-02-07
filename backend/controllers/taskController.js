@@ -6,10 +6,7 @@ const appMessage = require('../messages/appMessage');
 const getTasks = asyncHandler(async (req, res) => {
   //retreive only user's tasks
   const tasks = await Task.find({ user: req.user.id });
-  res.status(200).json({
-    count: tasks.length,
-    tasks: tasks,
-  });
+  res.status(200).json(tasks);
 });
 
 const getTaskById = asyncHandler(async (req, res) => {
