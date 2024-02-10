@@ -1,8 +1,12 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import Switch from '@mui/material/Switch';
+import { deleteTask } from '../features/tasks/taskSlice';
 import { useDispatch } from 'react-redux';
 
 const TaskItem = ({ task }) => {
+  const dispatch = useDispatch();
   return (
     <>
       <div className='task' style={{ height: '150' }}>
@@ -15,7 +19,16 @@ const TaskItem = ({ task }) => {
             name='isDoneCheckbox'
             checked={task.isDone}
             inputProps={{ 'aria-label': 'controlled' }}
+            size='small'
           />
+          <IconButton
+            aria-label='delete'
+            onClick={() => dispatch(deleteTask(task._id))}
+            size='small'
+            color='error'
+          >
+            <DeleteIcon />
+          </IconButton>
         </div>
       </div>
     </>

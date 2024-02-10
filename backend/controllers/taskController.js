@@ -99,6 +99,7 @@ const deleteTask = asyncHandler(async (req, res) => {
 
   await Task.findByIdAndDelete(req.params.taskId);
   res.status(200).json({
+    id: req.params.taskId,
     message: appMessage.task.success.deleted.replace('id', req.params.taskId),
   });
 });
