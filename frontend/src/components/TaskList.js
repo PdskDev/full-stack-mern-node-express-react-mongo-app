@@ -28,11 +28,9 @@ const TaskList = () => {
           <div className='tasks'>
             {tasks.map((taskItem) => (
               <>
-                {Array.isArray(taskItem)
-                  ? taskItem.map((taskData, idx) => (
-                      <TaskItem key={idx} task={taskData} />
-                    ))
-                  : null}
+                {Array.from(taskItem).map((taskData, idx) => (
+                  <TaskItem key={idx} task={taskData} />
+                ))}
               </>
             ))}
           </div>
