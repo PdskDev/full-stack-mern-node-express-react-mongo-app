@@ -26,14 +26,14 @@ const TaskList = () => {
       {tasks.length > 0 && (
         <>
           <div className='tasks'>
-            {tasks.map((task, index) => (
-              <div key={index}>
-                <>
-                  {task.map((taskItem, idx) => (
-                    <TaskItem key={idx} task={taskItem} />
-                  ))}
-                </>
-              </div>
+            {tasks.map((taskItem) => (
+              <>
+                {Array.isArray(taskItem)
+                  ? taskItem.map((taskData, idx) => (
+                      <TaskItem key={idx} task={taskData} />
+                    ))
+                  : null}
+              </>
             ))}
           </div>
         </>

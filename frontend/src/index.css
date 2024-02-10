@@ -31,6 +31,7 @@ li {
 h1,
 h2,
 h3 {
+  font-size: large;
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -86,20 +87,20 @@ h3 {
   color: #828282;
 }
 
-.goals {
+.tasks {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
-.goal {
+.task {
   background-color: #f4f4f4;
-  margin: 10px 0;
-  padding: 20px 0 10px;
+  margin: 5px 0;
+  padding: 10px;
   position: relative;
 }
 
-.goal .close {
+.task .close {
   position: absolute;
   top: 10px;
   right: 15px;
@@ -191,6 +192,29 @@ h3 {
   animation: spin 1.2s linear infinite;
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 90%;
+  }
+
+  .heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -253,98 +277,6 @@ h3 {
 }
 
 /* Footer */
-:root {
-  --primary: rgba(255, 255, 255, 0.85);
-  --light: rgba(255, 255, 255, 0.5);
-  --accent: rgb(86, 177, 187);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-footer {
-  z-index: 0;
-  width: 100%;
-  background-color: black;
-  font: 0.75rem helvetica, sans-serif;
-  color: var(--light);
-  display: flex;
-  justify-content: center;
-  padding: 3rem 8%;
-
-  & header {
-    width: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    color: var(--primary);
-    padding: 0 2rem;
-
-    & h2 {
-      position: relative;
-      text-transform: uppercase;
-
-      &::before {
-        content: '';
-        position: absolute;
-        transform: translate(-0.5rem, -0.25rem);
-        width: 1rem;
-        height: 1rem;
-        background-color: var(--accent);
-        z-index: -1;
-      }
-    }
-
-    & p {
-      font-style: italic;
-      line-height: 1.8;
-      color: var(--light);
-    }
-
-    & .icon {
-      font-size: 1.1rem;
-      padding: 0.25rem 0.5rem 0.25rem 0;
-      cursor: pointer;
-      color: var(--accent);
-
-      &:hover {
-        animation: pulse 0.5s;
-        color: var(--light);
-      }
-    }
-  }
-
-  & aside {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: 3rem;
-    padding: 0 2rem;
-
-    & ul {
-      list-style-type: none;
-
-      & li {
-        padding: 0.5rem 0;
-        cursor: pointer;
-
-        &:hover:not(:first-of-type) {
-          animation: pulse 0.5s;
-          color: var(--accent);
-        }
-      }
-
-      & li:first-of-type {
-        color: var(--primary);
-        cursor: default;
-      }
-    }
-  }
-}
 
 @keyframes pulse {
   0%,

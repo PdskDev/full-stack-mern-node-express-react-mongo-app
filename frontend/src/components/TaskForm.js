@@ -22,13 +22,15 @@ const TaskForm = () => {
     dispatch(createTask({ title, isDone }));
     setTitle('');
     setIsDone(false);
-    navigate('/alltasks');
+    return navigate('/alltasks');
   };
   return (
     <section className='form'>
       <form onSubmit={onSubmitHandler}>
         <div className='form-group'>
-          <label htmlFor='title'>My To Do</label>
+          <label htmlFor='title' style={{ fontWeight: 'bolder' }}>
+            My To Do
+          </label>
           <input
             type='text'
             id='title'
