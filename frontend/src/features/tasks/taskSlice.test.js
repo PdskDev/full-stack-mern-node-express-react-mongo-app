@@ -24,7 +24,11 @@ describe('taskSlice', () => {
             },
             auth:{
                 user: {
-                    user: {token: 'mock_token'}},
+                    user: {
+                        name: 'NadetDev',
+                        token: 'mock_token'
+                    }
+                    },
             },
         });
     });

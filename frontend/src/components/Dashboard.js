@@ -15,7 +15,7 @@ const Dashboard = () => {
   return (
     <>
       <section className='heading'>
-        <h1>Welcome {user.user && user.user.name}</h1>
+        <h1>Welcome {(!!user && !!user.user.name) ? user.user.name : ''}</h1>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button className='btn' onClick={() => navigate('/alltasks')}>
             View my all Todos
