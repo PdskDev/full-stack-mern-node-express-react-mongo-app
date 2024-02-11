@@ -9,7 +9,7 @@ const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
   return (
     <>
-      <div className='task' style={{ height: '150' }}>
+      <div className='task' style={{ height: 150, width: 150 }}>
         <div style={{ height: '10', fontSize: 12 }}>
           {new Date(task.createdAt).toLocaleString('fr-FR')}
         </div>
