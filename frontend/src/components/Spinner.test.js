@@ -8,11 +8,11 @@ describe('Spinner', () => {
   test('render correctly', () => {
     render(<Spinner />);
 
-    const containerDiv = screen.getAllByTestId('spin-container');
+    const containerDiv = screen.getByTestId('spin-container');
 
-    expect(containerDiv[0]).toBeInTheDocument();
+    expect(containerDiv).toBeInTheDocument();
 
-    const innerDiv = screen.getAllByTestId('inner-container');
-    expect(innerDiv[0]).toBeInTheDocument();
+    const innerDiv = screen.getByTestId('inner-container');
+    expect(innerDiv).toBeInTheDocument();
   });
 });
