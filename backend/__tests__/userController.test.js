@@ -1,18 +1,12 @@
 import { registerUser } from '../controllers/userController';
 
-//Mock User model functions
-jest.mock('../models/userModel.js', () => {
-  const mockUser = {
-    _id: 'user_id',
-    name: 'NadetDev',
-    email: 'nadetdev@gmail.com',
-  };
+const userModel = require('../models/userModel');
 
-  return {
-    findOne: jest.fn().mockResolvedValue(null),
-    create: jest.fn().mockResolvedValue(mockUser),
-  };
-});
+const mockUser = {
+  _id: 'user_id',
+  name: 'NadetDev',
+  email: 'nadetdev@gmail.com',
+};
 
 //Mock JWY & Bcrypt
 jest.mock('jsonwebtoken', () => ({
@@ -32,6 +26,9 @@ securePassword = jest.fn().mockResolvedValue('mock-hashed-password');
 generateJWTtoken = jest.fn().mockResolvedValue('mock-token');
 
 test('should register new user', async () => {
+  userModel.findOne = jest.fn().mockResolvedValue(null);
+  userModel.create = jest.fn().mockResolvedValue(mockUser);
+
   const req = {
     body: {
       name: 'NadetDev',
@@ -67,5 +64,25 @@ test('should return 400 error if any field is missing', async () => {
   await expect(registerUser(req, res)).rejects.toThrow(
     'All fields are required'
   );
+  expect(res.status).toHaveBeenCalledWith(400);
+});
+
+test('should return 400 error if user already exist', async () => {
+  userModel.findOne = jest.fn().mockResolvedValue(mockUser);
+
+  const req = {
+    body: {
+      name: 'NadetDev',
+      email: 'nadetdev@gmail.com',
+      password: 'password',
+    },
+  };
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  await expect(registerUser(req, res)).rejects.toThrow('User already exists');
   expect(res.status).toHaveBeenCalledWith(400);
 });
