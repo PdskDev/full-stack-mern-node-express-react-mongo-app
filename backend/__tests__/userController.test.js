@@ -1,5 +1,9 @@
 import { registerUser } from '../controllers/userController';
 
+let {
+  generateJWTtoken,
+  securePassword,
+} = require('../middleware/securityHandler');
 const userModel = require('../models/userModel');
 
 const mockUser = {
@@ -12,15 +16,6 @@ const mockUser = {
 jest.mock('jsonwebtoken', () => ({
   sign: jest.fn().mockResolvedValue('mock-token'),
 }));
-
-const bcrypt = require('bcryptjs');
-bcrypt.genSalt = jest.fn().mockResolvedValue('mock-token');
-bcrypt.hash = jest.fn().mockResolvedValue('mock-hashed-password');
-
-let {
-  generateJWTtoken,
-  securePassword,
-} = require('../middleware/securityHandler');
 
 securePassword = jest.fn().mockResolvedValue('mock-hashed-password');
 generateJWTtoken = jest.fn().mockResolvedValue('mock-token');
