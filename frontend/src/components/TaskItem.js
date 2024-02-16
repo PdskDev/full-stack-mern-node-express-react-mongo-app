@@ -8,30 +8,28 @@ import { useDispatch } from 'react-redux';
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
   return (
-    <>
-      <div className='task' style={{ height: 150, width: 150 }}>
-        <div style={{ height: '10', fontSize: 12 }}>
-          {new Date(task.createdAt).toLocaleString('fr-FR')}
-        </div>
-        <h2 style={{ height: 80 }}>{task.title} </h2>
-        <div style={{ height: 30 }}>
-          <Switch
-            name='isDoneCheckbox'
-            checked={task.isDone}
-            inputProps={{ 'aria-label': 'controlled' }}
-            size='small'
-          />
-          <IconButton
-            aria-label='delete'
-            onClick={() => dispatch(deleteTask(task._id))}
-            size='small'
-            color='error'
-          >
-            <DeleteIcon />
-          </IconButton>
-        </div>
+    <div className='task' style={{ height: 150, width: 150 }}>
+      <div style={{ height: '10', fontSize: 12 }}>
+        {new Date(task.createdAt).toLocaleString('fr-FR')}
       </div>
-    </>
+      <h2 style={{ height: 80 }}>{task.title} </h2>
+      <div style={{ height: 30 }}>
+        <Switch
+          name='isDoneCheckbox'
+          checked={task.isDone}
+          inputProps={{ 'aria-label': 'controlled' }}
+          size='small'
+        />
+        <IconButton
+          aria-label='delete'
+          onClick={() => dispatch(deleteTask(task._id))}
+          size='small'
+          color='error'
+        >
+          <DeleteIcon />
+        </IconButton>
+      </div>
+    </div>
   );
 };
 

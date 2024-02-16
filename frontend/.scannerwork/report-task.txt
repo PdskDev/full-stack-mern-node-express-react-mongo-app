@@ -1,0 +1,6 @@
+projectKey=NadetDev-MERN-1001
+serverUrl=http://localhost:9000
+serverVersion=10.4.0.87286
+dashboardUrl=http://localhost:9000/dashboard?id=NadetDev-MERN-1001
+ceTaskId=78a976bf-db80-4e6a-b5cf-9417cda770c0
+ceTaskUrl=http://localhost:9000/api/ce/task?id=78a976bf-db80-4e6a-b5cf-9417cda770c0

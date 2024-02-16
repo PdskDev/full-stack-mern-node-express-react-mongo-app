@@ -1,0 +1,7 @@
+{
+  "project": "NadetDev-MERN-1001",
+  "sonarURL": "https://localhost:9000",
+  "auth": {
+    "token": "squ_8615ee4f527de450e064e4b0fc8d53b834e836e9"
+  }
+}
