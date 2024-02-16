@@ -1,4 +1,3 @@
-import { json } from 'express';
 import { registerUser } from '../controllers/userController';
 
 //Mock User model functions
