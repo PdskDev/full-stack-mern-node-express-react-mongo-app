@@ -4,8 +4,10 @@ const {
   updateTask,
 } = require('../controllers/taskController');
 const Task = require('../models/taskModel');
+const User = require('../models/userModel');
 
 jest.mock('../models/taskModel');
+jest.mock('../models/userModel');
 
 test('should get tasks for a user', async () => {
   const req = { user: { id: 'user-id' } };
@@ -82,4 +84,73 @@ test('should return a 400 error for missing title task', async () => {
 
   await expect(createTask(req, res)).rejects.toThrow('Please enter task title');
   expect(res.status).toHaveBeenCalledWith(400);
+});
+
+test('should return a 401 error if user is not found', async () => {
+  const taskId = 'task-id-1';
+  const userId = 'no-identique-user-id';
+  const req = {
+    params: { id: taskId },
+    user: { id: userId },
+    body: { title: 'Learn .Net Core 8', isDone: true },
+  };
+
+  //Mocking the create method to return new task
+  const taskToUpdate = {
+    _id: taskId,
+    title: 'Learn .Net Core',
+    isDone: false,
+    user: 'user-id',
+  };
+
+  //Mocking find task
+  Task.findById.mockResolvedValue(taskToUpdate);
+
+  //Mocking find user that retun no user
+  User.findById.mockResolvedValue(null);
+
+  const errorMessage = 'No such user found';
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  await expect(updateTask(req, res)).rejects.toThrow(errorMessage);
+  expect(res.status).toHaveBeenCalledWith(401);
+});
+
+test('should return a 401 error if user is not authorized', async () => {
+  const taskId = 'task-id-1';
+  const userId = 'no-identique-user-id';
+  const otherUserId = 'other-user-id-2';
+  const req = {
+    params: { id: taskId },
+    user: { id: userId },
+    body: { title: 'Learn .Net Core 8', isDone: true },
+  };
+
+  //Mocking the create method to return new task
+  const taskToUpdate = {
+    _id: taskId,
+    title: 'Learn .Net Core',
+    isDone: false,
+    user: 'user-id',
+  };
+
+  //Mocking find task
+  Task.findById.mockResolvedValue(taskToUpdate);
+
+  //Mocking find user that retun no user
+  User.findById.mockResolvedValue(otherUserId);
+
+  const errorMessage = 'User is not authorized to update this task';
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  await expect(updateTask(req, res)).rejects.toThrow(errorMessage);
+  expect(res.status).toHaveBeenCalledWith(401);
 });

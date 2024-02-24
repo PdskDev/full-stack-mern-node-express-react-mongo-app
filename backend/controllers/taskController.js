@@ -52,12 +52,12 @@ const updateTask = asyncHandler(async (req, res) => {
   const currentUser = await User.findById(req.user.id);
 
   if (!currentUser) {
-    res.status(400);
+    res.status(401);
     throw new Error(appMessage.user.error.user_not_found);
   }
 
   if (taskToUpdate.user.toString() != currentUser.id) {
-    res.status(400);
+    res.status(401);
     throw new Error(
       appMessage.task.error.not_authorized_action.replace('action', 'update')
     );
