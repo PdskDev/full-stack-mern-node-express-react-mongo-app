@@ -19,8 +19,6 @@ const getTaskById = asyncHandler(async (req, res) => {
 });
 
 const createTask = asyncHandler(async (req, res) => {
-  console.log(req.body);
-
   const taskIsDone = req.body.isDone ? req.body.isDone : false;
 
   if (!req.body.title) {
